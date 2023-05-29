@@ -1,7 +1,6 @@
 package steffanvanderwerf.deathswap.commands;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,6 +11,8 @@ import steffanvanderwerf.deathswap.Deathswap;
 import steffanvanderwerf.deathswap.chattimer.ChatTimer;
 import steffanvanderwerf.deathswap.players.SwappedPlayers;
 import steffanvanderwerf.deathswap.tasks.PlayerSwapTask;
+
+import java.util.Objects;
 
 public class CommandDeathSwap implements CommandExecutor {
     private final Deathswap plugin;
@@ -85,14 +86,31 @@ public class CommandDeathSwap implements CommandExecutor {
             }
         }
 
-
         ChatTimer countdown = new ChatTimer(this.plugin, countdownTimeSeconds);
         countdown.startGameSecondsCountdown();
+
+        this.setupGame();
 
         this.swapTask = scheduler.runTaskTimerAsynchronously(this.plugin, this.swapPlayers, secondsPeriod * 20L, secondsPeriod * 20L);
         this.TswapPlayerId = this.swapTask.getTaskId();
 
         return true;
+    }
+    private void setupGame() {
+
+        for (Player player : plugin.getSwappedPlayers().getPlayers()) {
+            player.setGameMode(GameMode.SURVIVAL);
+            player.setWalkSpeed(1.5f);
+            player.setHealth(20);
+            player.setFoodLevel(20);
+
+            player.getPlayer().getInventory().clear();
+        }
+
+        World world = Bukkit.getServer().getWorld("world");
+        world.setTime(0L);
+        world.setPVP(false);
+        world.setDifficulty(Difficulty.HARD);
     }
 
     private boolean stopGame() {
@@ -101,6 +119,10 @@ public class CommandDeathSwap implements CommandExecutor {
             Bukkit.broadcastMessage(ChatColor.BLUE + "Game is not running!");
             return true;
         }
+
+        World world = Bukkit.getServer().getWorld("world");
+        world.setPVP(true);
+        world.setDifficulty(Difficulty.PEACEFUL);
 
         this.swapTask.cancel();
         this.plugin.getSwappedPlayers().resetPlayers();
