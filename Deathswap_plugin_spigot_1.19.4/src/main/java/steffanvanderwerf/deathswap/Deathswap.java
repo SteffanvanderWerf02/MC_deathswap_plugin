@@ -1,14 +1,15 @@
 package steffanvanderwerf.deathswap;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import steffanvanderwerf.deathswap.commands.CommandDeathSwap;
 import steffanvanderwerf.deathswap.commands.CommandPlayers;
 import steffanvanderwerf.deathswap.players.SwappedPlayers;
-import steffanvanderwerf.deathswap.commands.CommandDeathSwap;
 
 public class Deathswap extends JavaPlugin {
 
     private SwappedPlayers playerSwap;
     private boolean playersSet;
+
     @Override
     public void onEnable() {
         getLogger().info("onEnable is called!");
@@ -19,6 +20,7 @@ public class Deathswap extends JavaPlugin {
         this.getCommand("players").setExecutor(new CommandPlayers(this));
         this.getCommand("deathSwap").setExecutor(new CommandDeathSwap(this, this.playerSwap, this.playersSet));
     }
+
     @Override
     public void onDisable() {
         this.getServer().getScheduler().cancelTasks(this);

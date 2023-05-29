@@ -9,7 +9,7 @@ import steffanvanderwerf.deathswap.players.SwappedPlayers;
 
 public class PlayerSwapTask implements Runnable {
     private final Deathswap plugin;
-    private SwappedPlayers swappedPlayers;
+    private final SwappedPlayers swappedPlayers;
 
     public PlayerSwapTask(Deathswap plugin, SwappedPlayers task) {
         this.plugin = plugin;
@@ -37,6 +37,7 @@ public class PlayerSwapTask implements Runnable {
 
         while (Bukkit.getScheduler().isQueued(countdown.getTaskID())) ;
     }
+
     private void swapPlayers() {
         Location P1Loc = this.swappedPlayers.getPlayer1().getLocation();
         Location P2Loc = this.swappedPlayers.getPlayer2().getLocation();

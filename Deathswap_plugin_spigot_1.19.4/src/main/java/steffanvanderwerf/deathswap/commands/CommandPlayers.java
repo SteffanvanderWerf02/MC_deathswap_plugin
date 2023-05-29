@@ -18,7 +18,7 @@ public class CommandPlayers implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (command.getName().equalsIgnoreCase("players")) {
-            if(args[0].equalsIgnoreCase("get")) {
+            if (args[0].equalsIgnoreCase("get")) {
                 if (args.length < 1) {
                     sender.sendMessage("Usage: /players get");
                     return true;
@@ -27,25 +27,25 @@ public class CommandPlayers implements CommandExecutor {
                 Player player1 = plugin.getSwappedPlayers().getPlayer1();
                 Player player2 = plugin.getSwappedPlayers().getPlayer2();
 
-                if (checkIfPlayersSet(player1, player2, sender)){
+                if (checkIfPlayersSet(player1, player2, sender)) {
                     sender.sendMessage(ChatColor.GOLD + "Player 1: " + player1.getName());
                     sender.sendMessage(ChatColor.DARK_AQUA + "Player 2: " + player2.getName());
 
                     return true;
                 }
                 return false;
-            }else if (args[0].equalsIgnoreCase("set")) {
+            } else if (args[0].equalsIgnoreCase("set")) {
                 if (args.length < 3) {
-                    sender.sendMessage(ChatColor.RED +"Usage: /players set <player1> <player2>");
+                    sender.sendMessage(ChatColor.RED + "Usage: /players set <player1> <player2>");
                     return true;
                 }
 
                 Player player1 = Bukkit.getPlayer(args[1]);
                 Player player2 = Bukkit.getPlayer(args[2]);
 
-                if (checkIfPlayersSet(player1, player2, sender)){
+                if (checkIfPlayersSet(player1, player2, sender)) {
                     if (player1 == player2) {
-                        sender.sendMessage(ChatColor.RED +"Players must be different.");
+                        sender.sendMessage(ChatColor.RED + "Players must be different.");
                         return false;
                     }
                 }
@@ -53,7 +53,7 @@ public class CommandPlayers implements CommandExecutor {
                 plugin.getSwappedPlayers().setPlayers(player1, player2);
                 plugin.setPlayersSet(true);
 
-                sender.sendMessage(ChatColor.GOLD +"Players set.");
+                sender.sendMessage(ChatColor.GOLD + "Players set.");
                 return true;
             }
         }
@@ -62,7 +62,7 @@ public class CommandPlayers implements CommandExecutor {
 
     public boolean checkIfPlayersSet(Player player1, Player player2, CommandSender sender) {
         if (player1 == null || player2 == null) {
-            sender.sendMessage(ChatColor.RED +"One or both players are not set.");
+            sender.sendMessage(ChatColor.RED + "One or both players are not set.");
             return false;
         }
 
