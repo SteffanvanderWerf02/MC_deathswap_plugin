@@ -1,6 +1,7 @@
 package steffanvanderwerf.deathswap.commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -29,19 +30,19 @@ public class CommandDeathSwap implements CommandExecutor {
         if (sender instanceof Player) {
 
             if (!sender.hasPermission("deathswap.start") && !sender.hasPermission("deathswap.stop")) {
-                sender.sendMessage("You don't have permission to start/stop the game!");
+                sender.sendMessage(ChatColor.RED + "You don't have permission to start/stop the game!");
                 return false;
             }
 
             if (!plugin.arePlayersSet()) {
-                sender.sendMessage("Players have not been set. Use /setplayers first.");
+                Bukkit.broadcastMessage(ChatColor.RED +"Players are not set! Use /players set <player1> <player2> first.");
                 return false;
             }
 
             if (args[0].equals("start")) {
 
                 if (args.length != 2) {
-                    sender.sendMessage("Usage: /deathswap [start] [swapTime]");
+                    sender.sendMessage(ChatColor.RED +"Usage: /deathswap [start] [swapTime]");
                     return false;
                 }
 
@@ -49,24 +50,22 @@ public class CommandDeathSwap implements CommandExecutor {
             } else if (args[0].equals("stop")) {
 
                 if (args.length == 1) {
-                    sender.sendMessage("Usage: /deathswap [stop]");
+                    sender.sendMessage(ChatColor.RED +"Usage: /deathswap [stop]");
                     return false;
                 }
 
                 return this.stopGame();
-            } else {
-                sender.sendMessage("Usage: /deathswap [start/stop] [swapTime]");
-                return false;
             }
+            return false;
         } else {
-            sender.sendMessage("You must be a player to use this command!");
+            sender.sendMessage(ChatColor.RED +"You must be a player to use this command!");
             return false;
         }
     }
 
     private boolean startGame(String[] args) {
         if (Bukkit.getScheduler().isQueued(this.TswapPlayerId)) {
-            Bukkit.broadcastMessage("Game is already running!");
+            Bukkit.broadcastMessage(ChatColor.BLUE +"Game is already running!");
             return true;
         }
 
@@ -82,20 +81,20 @@ public class CommandDeathSwap implements CommandExecutor {
         this.swapTask = Bukkit.getScheduler().runTaskTimerAsynchronously(this.plugin, this.swapPlayers, secondsPeriod * 20, secondsPeriod * 20);
         this.TswapPlayerId = this.swapTask.getTaskId();
 
-        Bukkit.broadcastMessage("Game started!");
+        Bukkit.broadcastMessage(ChatColor.GREEN +"Game started!");
         return true;
     }
 
     private boolean stopGame() {
 
         if (!Bukkit.getScheduler().isQueued(this.TswapPlayerId)) {
-            Bukkit.broadcastMessage("Game is not running!");
+            Bukkit.broadcastMessage(ChatColor.BLUE +"Game is not running!");
             return true;
         }
 
         this.swapTask.cancel();
         this.plugin.getSwappedPlayers().resetPlayers();
-        Bukkit.broadcastMessage("Game stopped!");
+        Bukkit.broadcastMessage(ChatColor.BLUE +"Game stopped!");
 
         return true;
     }

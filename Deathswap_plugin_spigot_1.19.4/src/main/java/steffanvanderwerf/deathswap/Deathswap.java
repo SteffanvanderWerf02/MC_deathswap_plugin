@@ -7,17 +7,17 @@ import steffanvanderwerf.deathswap.commands.CommandDeathSwap;
 
 public class Deathswap extends JavaPlugin {
 
-    private SwappedPlayers playerTask;
+    private SwappedPlayers playerSwap;
     private boolean playersSet;
     @Override
     public void onEnable() {
         getLogger().info("onEnable is called!");
 
         // Initialize the PlayersTask instance
-        this.playerTask = new SwappedPlayers(this);
+        this.playerSwap = new SwappedPlayers(this);
 
-        this.getCommand("setPlayers").setExecutor(new CommandPlayers(this));
-        this.getCommand("deathswap").setExecutor(new CommandDeathSwap(this, this.playerTask, this.playersSet));
+        this.getCommand("players").setExecutor(new CommandPlayers(this));
+        this.getCommand("deathSwap").setExecutor(new CommandDeathSwap(this, this.playerSwap, this.playersSet));
     }
     @Override
     public void onDisable() {
@@ -26,7 +26,7 @@ public class Deathswap extends JavaPlugin {
     }
 
     public SwappedPlayers getSwappedPlayers() {
-        return this.playerTask;
+        return this.playerSwap;
     }
 
     public void setPlayersSet(boolean playersSet) {
