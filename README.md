@@ -1,4 +1,4 @@
-# Death Swap plugin for Minecraft 1.16.x
+# Death Swap plugin for Minecraft 1.19.x
 
 Adds the `/deathswap` command and `/players` to a Bukkit/Spigot/PaperMC Minecraft Servers to swap players in the server randomly every X minutes.
 
