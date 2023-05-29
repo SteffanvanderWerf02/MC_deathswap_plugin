@@ -26,8 +26,9 @@ public class SwappedPlayers {
     }
 
     public Player[] getPlayers() {
-        return new Player[] {this.player1, this.player2};
+        return new Player[]{this.player1, this.player2};
     }
+
     public void resetPlayers() {
         this.player1 = null;
         this.player2 = null;

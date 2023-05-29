@@ -18,7 +18,7 @@ public class Deathswap extends JavaPlugin {
         this.playerSwap = new SwappedPlayers(this);
 
         this.getCommand("players").setExecutor(new CommandPlayers(this));
-        this.getCommand("deathSwap").setExecutor(new CommandDeathSwap(this, this.playerSwap, this.playersSet));
+        this.getCommand("deathSwap").setExecutor(new CommandDeathSwap(this, this.playerSwap));
     }
 
     @Override
