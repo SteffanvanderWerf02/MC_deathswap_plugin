@@ -1,18 +1,22 @@
 package steffanvanderwerf.deathswap;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import steffanvanderwerf.deathswap.commands.CommandSetDeathSwapPlayers;
-import steffanvanderwerf.deathswap.tasks.PlayersTask;
+import steffanvanderwerf.deathswap.commands.CommandPlayers;
+import steffanvanderwerf.deathswap.players.SwappedPlayers;
 import steffanvanderwerf.deathswap.commands.CommandDeathSwap;
 
-public class DeathSwap extends JavaPlugin {
+public class Deathswap extends JavaPlugin {
 
-    private PlayersTask playerTask;
+    private SwappedPlayers playerTask;
     private boolean playersSet;
     @Override
     public void onEnable() {
         getLogger().info("onEnable is called!");
-        this.getCommand("setPlayers").setExecutor(new CommandSetDeathSwapPlayers(this));
+
+        // Initialize the PlayersTask instance
+        this.playerTask = new SwappedPlayers(this);
+
+        this.getCommand("setPlayers").setExecutor(new CommandPlayers(this));
         this.getCommand("deathswap").setExecutor(new CommandDeathSwap(this, this.playerTask, this.playersSet));
     }
     @Override
@@ -21,7 +25,7 @@ public class DeathSwap extends JavaPlugin {
         getLogger().info("onDisable is called!");
     }
 
-    public PlayersTask getPlayerTask() {
+    public SwappedPlayers getSwappedPlayers() {
         return this.playerTask;
     }
 

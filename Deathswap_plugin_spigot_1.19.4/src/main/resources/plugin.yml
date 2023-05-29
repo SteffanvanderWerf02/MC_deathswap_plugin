@@ -1,14 +1,15 @@
 name: DeathSwap
 version: 1.0.0
-main: steffanvanderwerf.deathswap.DeathSwap
+main: steffanvanderwerf.deathswap.Deathswap
 api-version: 1.19
 authors: [ steffanvanderwerf ]
 commands:
-    setplayers:
+    players:
         description: Set player1 and player2
-        usage: /setplayers <player1> <player2>
+        usage: /players [set|get] <player1> <player2>
+        permission: players.set
     deathswap:
         description: DeathSwap command
         usage: /<command> [start|stop] [swapTime]
-        aliases: [ds]
+        aliases: [ ds ]
         permission: deathswap.start
