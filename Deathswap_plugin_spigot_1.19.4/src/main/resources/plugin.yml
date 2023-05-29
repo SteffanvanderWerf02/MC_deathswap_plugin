@@ -1,0 +1,4 @@
+  name: DeathSwap
+  main: steffanvanderwerf.deathswap.DeathSwap
+  version: 1.0.0
+  api-version: 1.19.4-R0.1-SNAPSHOT
