@@ -62,7 +62,7 @@ public class CommandPlayers implements CommandExecutor {
 
     public boolean checkIfPlayersSet(Player player1, Player player2, CommandSender sender) {
         if (player1 == null || player2 == null) {
-            sender.sendMessage("One or both players are not set.");
+            sender.sendMessage(ChatColor.RED +"One or both players are not set.");
             return false;
         }
 

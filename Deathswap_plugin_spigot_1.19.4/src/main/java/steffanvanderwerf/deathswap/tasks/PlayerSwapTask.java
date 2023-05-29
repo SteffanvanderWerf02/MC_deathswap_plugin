@@ -33,7 +33,7 @@ public class PlayerSwapTask implements Runnable {
 
     public void waitForCountdown(int seconds) {
         ChatTimer countdown = new ChatTimer(plugin, seconds);
-        countdown.startSecondsCountdown();
+        countdown.startSwapSecondsCountdown();
 
         while (Bukkit.getScheduler().isQueued(countdown.getTaskID())) ;
     }
